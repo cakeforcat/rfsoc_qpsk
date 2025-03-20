@@ -134,7 +134,8 @@ _qpsk_props = [("transfer_symbol", 0), ("transfer_fft", 4),
                ("packetsize_rf", 20), ("packetsize_fft", 24),
                ("packetsize_time", 52), ("autorestart_symbol", 36),
                ("autorestart_fft", 40), ("autorestart_time", 56),
-               ("lfsr_rst", 28), ("enable", 32), ("output_gain", 44)]
+               ("lfsr_rst", 28), ("enable", 32), ("output_gain", 44),
+               ("tx_channel", 72)]
 
 
 # Func to return a MMIO getter and setter based on a relative addr

@@ -127,14 +127,14 @@ class QpskOverlay(Overlay):
             clocks.set_custom_lmclks()
 
         # Set sane DAC defaults
-        self.dac_tile.DynamicPLLConfig(1, 409.6, 1024)
+        self.dac_tile.DynamicPLLConfig(1, 409.6, 4096)
         sleep(0.6)
         self.dac_block.NyquistZone = 2
         self.dac_block.MixerSettings = {
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
             'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
-            'Freq':           1000,
+            'Freq':           3967,
             'MixerMode':      xrfdc.MIXER_MODE_C2R,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
@@ -143,7 +143,7 @@ class QpskOverlay(Overlay):
         self.dac_tile.SetupFIFO(True)
 
         # Set sane ADC defaults
-        self.adc_tile.DynamicPLLConfig(1, 409.6, 1024)
+        self.adc_tile.DynamicPLLConfig(1, 409.6, 4096)
         sleep(0.6)
         self.adc_block.NyquistZone = 2
         self.adc_block.MixerSettings = {
@@ -361,6 +361,15 @@ class QpskOverlay(Overlay):
                 readout_format='.1f',
                 style = {'description_width': 'initial'}
             )
+        
+        def new_ch_dropdown(title):
+            return ipw.Dropdown(
+                options = [0,1,2,3],
+                value=0,
+                description=title,
+                disabled=False,
+                style = {'description_width': 'initial'}
+            )
 
         pow_slider = ipw.SelectionSlider(
             options=[0.1, 0.3, 0.6, 1],
@@ -372,6 +381,7 @@ class QpskOverlay(Overlay):
 
         tx_nco_slider = new_nco_slider('TX Centre Frequency (MHz)')
         rx_nco_slider = new_nco_slider('RX Centre Frequency (MHz)')
+        tx_ch_dropdown = new_ch_dropdown('TX channel (0-3)')
 
         ipw.link((rx_nco_slider, 'value'), (tx_nco_slider, 'value'))
         tx_nco_slider.observe(
@@ -382,6 +392,7 @@ class QpskOverlay(Overlay):
             unwrap_slider_val(lambda v: update_nco(self.adc_block, v)),
             names='value'
         )
+        
 
         control_widgets = ipw.Accordion(children=[ipw.VBox([
             pow_slider,
