@@ -134,7 +134,7 @@ class QpskOverlay(Overlay):
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
             'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
-            'Freq':           3967,
+            'Freq':           3960,
             'MixerMode':      xrfdc.MIXER_MODE_C2R,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
@@ -150,7 +150,7 @@ class QpskOverlay(Overlay):
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_TILE,
             'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
-            'Freq':           1000,
+            'Freq':           3960,
             'MixerMode':      xrfdc.MIXER_MODE_R2C,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
@@ -349,10 +349,10 @@ class QpskOverlay(Overlay):
 
         def new_nco_slider(title):
             return ipw.FloatSlider(
-                value=1000,
-                min=620,
-                max=1220,
-                step=20,
+                value=3960,
+                min=3930,
+                max=4000,
+                step=10,
                 description=title,
                 disabled=False,
                 continuous_update=False,
@@ -362,14 +362,6 @@ class QpskOverlay(Overlay):
                 style = {'description_width': 'initial'}
             )
         
-        def new_ch_dropdown(title):
-            return ipw.Dropdown(
-                options = [0,1,2,3],
-                value=0,
-                description=title,
-                disabled=False,
-                style = {'description_width': 'initial'}
-            )
 
         pow_slider = ipw.SelectionSlider(
             options=[0.1, 0.3, 0.6, 1],
@@ -381,7 +373,6 @@ class QpskOverlay(Overlay):
 
         tx_nco_slider = new_nco_slider('TX Centre Frequency (MHz)')
         rx_nco_slider = new_nco_slider('RX Centre Frequency (MHz)')
-        tx_ch_dropdown = new_ch_dropdown('TX channel (0-3)')
 
         ipw.link((rx_nco_slider, 'value'), (tx_nco_slider, 'value'))
         tx_nco_slider.observe(
