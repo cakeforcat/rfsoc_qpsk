@@ -18,6 +18,8 @@ R_IPI = 5;
 R_IPI2 = 4;
 R_RFDAC = 8;    % Rate change to be undertaken by RF-DAC (after output)
 
+R_spec = 2^3;
+
 % sampling rates at OUTPUTs of the filter sections
 
 fRRC = Rs * R_RRC;
@@ -25,11 +27,13 @@ fHB  = fRRC * R_HB;
 fCICcomp = fHB * R_CICcomp;
 fCIC = fCICcomp * R_CIC;
 fIPI = fCIC * R_IPI;
+fSPEC = fIPI/R_spec;
 fIPI2 = fIPI * R_IPI2;
 fRFDAC = fIPI2 * R_RFDAC;
 
 fprintf(['Output sampling frequency (post-CIC) = ', num2str(fCIC/1e6), 'MHz. \r\n']);
 fprintf(['Output sampling frequency (post-RF-DAC) = ', num2str(fRFDAC/1e6), 'MHz. \r\n']);
+fprintf(['Output sampling frequency (post-spec-HB-chain) = ', num2str(fSPEC/1e6), 'MHz. \r\n']);
 
 %% Design Pulse shaping filter (Root Raised Cosine)
 % This filter will interpolate by factor R_RRC (defined above).
