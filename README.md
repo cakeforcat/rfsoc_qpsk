@@ -1,3 +1,12 @@
+# CoRSoC fork of the QPSK transceiver project
+This repository is a fork of the project, as used for baseband modulation and demodulation inside the [CoRSoC](https://github.com/cakeforcat/CoRSoC) project.
+The main additions include:
+* an updated `iprepo` directory, with additional shims and IPs built with Vitis Model Composer
+* modified overlay driver for the ZCU111, with higher default frequencies for NCOs and samplers
+* port of the tx IP to VMC from SysGen
+* missing interpolation and decimation filters extracted from the built IPI, ported to the filter gen script
+
+It is not recommended to use this repository as is. It was used as a support repository for the CoRSoC project
 <img src="strathsdr_banner.png" width="100%">
 
 <table border="0" align="center">
