@@ -1,4 +1,4 @@
-%% Script to design interpolating filter chain and equivalent decimator in transmitter
+%% modified 'QPSK demo' script for the RX and TX filter chains
 
 clear all;
 close all;
@@ -137,6 +137,7 @@ WComp = coeffs(CICcomp);
 fvc = fvtool(CICcompsc);%, WComp.Numerator);
 %% Design additional IP interpolator
 % the original x5 IPI interpolator extracted from Vivado
+% not used in the end, longer filter same as in RX used for bigger margins
 
 Ap = 2;                                 
 Ast = 40;                               
