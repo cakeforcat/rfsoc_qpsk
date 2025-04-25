@@ -6,7 +6,7 @@ import numpy as np
 import ipywidgets as ipw
 from time import sleep
 
-from rfsoc_qpsk import dma_timer, sdr_plots, qpsk_rx, qpsk_tx, clocks
+from rfsoc_qpsk import dma_timer, sdr_plots, qpsk_rx, qpsk_tx, clocks, qpsk_custom
 
 
 class TimerRegistry():
